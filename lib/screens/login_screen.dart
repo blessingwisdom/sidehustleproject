@@ -3,6 +3,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:sidehustle/screens/home_screen.dart';
+import 'package:sidehustle/screens/register_screen.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -31,6 +33,7 @@ class _LoginState extends State<Login> {
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "email Address",
         border: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white54),
           borderRadius: BorderRadius.circular(15.0),
         ),
       ),
@@ -61,7 +64,10 @@ class _LoginState extends State<Login> {
       color: Colors.blue.shade300,
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        },
         child: Text(
           "Login",
           textAlign: TextAlign.center,
@@ -111,11 +117,17 @@ class _LoginState extends State<Login> {
                       children: <Widget>[
                         Text("Don't have an account? "),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        RegistrationScreen()));
+                          },
                           child: Text(
                             "SignUp",
                             style: TextStyle(
-                              color: Colors.white24,
+                              color: Colors.white54,
                               fontWeight: FontWeight.w600,
                               fontSize: 15.0,
                             ),
