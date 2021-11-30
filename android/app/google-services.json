@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "407998895245",
+    "project_id": "sidehustle-e78db",
+    "storage_bucket": "sidehustle-e78db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407998895245:android:6792babc2e68b81f347ec4",
+        "android_client_info": {
+          "package_name": "com.example.sidehustle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407998895245-itc6b6h4a90njb38ktl7lp4cmdjn8di1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sidehustle",
+            "certificate_hash": "55c3ddebbf5b7bd1b224bee65f92145eb068a78b"
+          }
+        },
+        {
+          "client_id": "407998895245-jlr64mfe51ul52c2vank43ogng552ran.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdz6SHqYWG2hXd5HRRax4ec-6nJCmx7xo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407998895245-jlr64mfe51ul52c2vank43ogng552ran.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
