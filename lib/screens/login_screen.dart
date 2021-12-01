@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sidehustle/screens/home_screen.dart';
 import 'package:sidehustle/screens/register_screen.dart';
@@ -16,23 +17,64 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   //form Key
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final _auth = FirebaseAuth.instance;
+  void _submit() async {
+    final valid = _formKey.currentState?.validate() ?? false;
+    if (valid) {
+      try {
+        final userCredential = await _auth.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+
+        final user = userCredential.user;
+        if (user != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+          );
+        } else {}
+      } catch (e) {
+        if (e is FirebaseAuthException) {
+          if (e.code == 'user-not-found') {
+            print('user not found');
+          }
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final emailField = TextFormField(
       autofocus: false,
       controller: emailController,
+      keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return ("Please Enter Your Email");
+        }
+      },
       onSaved: (value) {
-        emailController.text = value!;
+        if (value != null) {
+          emailController.text = value;
+        }
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail),
+        prefixIcon: Icon(
+          Icons.mail,
+          color: Colors.white54,
+        ),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "email Address",
-        border: OutlineInputBorder(
+        hintStyle: TextStyle(color: Colors.white38),
+        enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white54),
           borderRadius: BorderRadius.circular(15.0),
         ),
@@ -43,7 +85,7 @@ class _LoginState extends State<Login> {
       autofocus: false,
       controller: passwordController,
       obscureText: true,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.visiblePassword,
       onSaved: (value) {
         passwordController.text = value!;
       },
@@ -64,10 +106,7 @@ class _LoginState extends State<Login> {
       color: Colors.blue.shade300,
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        onPressed: () {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => HomeScreen()));
-        },
+        onPressed: _submit,
         child: Text(
           "Login",
           textAlign: TextAlign.center,

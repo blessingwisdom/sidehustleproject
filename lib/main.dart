@@ -5,28 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:sidehustle/screens/login_screen.dart';
 //import 'package:sidehustle/screens/register_screen.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  await Firebase.initializeApp();
+
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  void initializeFirebase() async {
-    await Firebase.initializeApp();
-  }
-
-  @override
-  void initState() {
-    initializeFirebase();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

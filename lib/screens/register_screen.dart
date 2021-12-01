@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sidehustle/screens/home_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -18,6 +20,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final emailEditingController = TextEditingController();
   final passwordEditingController = TextEditingController();
   final confirmPasswordEditingController = TextEditingController();
+
+  final _auth = FirebaseAuth.instance;
+  void _submit() async {
+    final valid = _formKey.currentState?.validate() ?? false;
+    if (valid) {
+      final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: emailEditingController.text,
+        password: passwordEditingController.text,
+      );
+      final user = userCredential.user;
+      if (user != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
